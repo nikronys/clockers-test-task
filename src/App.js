@@ -3,11 +3,11 @@ import './app.css';
 
 import ColorSlider from './components/colorSlider';
 
-function App({ location, weather, onSliderChange, background }) {
-  if (!location) {
+function App({ location, weather, onSliderChange, background, isLoading }) {
+  if (!location && !isLoading) {
     return (
       <div className="app">
-        You need to allow to track your location.
+        You need to allow us to track your location.
       </div>
     );
   }

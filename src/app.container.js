@@ -8,6 +8,7 @@ function AppContainer() {
   const location = useCurrentLocation();
   const [data, setData] = useState({});
   const [background, setBackground] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const onSliderChange = (color) => {
     setBackground(color.hex);
@@ -20,6 +21,8 @@ function AppContainer() {
   useEffect(() => {
     const fetchData = async () => {
       if (location) {
+        setLoading(true)
+
         const cities = await fetch(
           `${process.env.NODE_ENV === 'development' ? 'https://cors-anywhere.herokuapp.com/' : ''}https://www.metaweather.com/api/location/search/?lattlong=${location.latitude},${location.longitude}`
         )
@@ -35,6 +38,7 @@ function AppContainer() {
         const color = getColorByTemprature(result.consolidated_weather[0].the_temp);
 
         setBackground(color);
+        setLoading(false)
 
         const root = document.getElementById('root');
 
@@ -53,6 +57,7 @@ function AppContainer() {
       weather={data}
       background={background}
       onSliderChange={onSliderChange}
+      isLoading={isLoading}
     />
   )
 }
