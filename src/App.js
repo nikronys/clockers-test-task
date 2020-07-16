@@ -1,7 +1,9 @@
 import React from 'react';
 import './app.css';
 
-function App({ location, weather }) {
+import ColorSlider from './components/colorSlider';
+
+function App({ location, weather, onSliderChange, background }) {
   if (!location) {
     return (
       <div className="app">
@@ -21,7 +23,10 @@ function App({ location, weather }) {
   return (
     <div className="app">
       <div className="weather-block">
-        {weather.title} {Math.round(weather.consolidated_weather[0].the_temp)}°C
+        <div>
+          {weather.title} {Math.round(weather.consolidated_weather[0].the_temp)}°C
+        </div>
+        <ColorSlider onChange={onSliderChange} background={background} />
       </div>
     </div>
   );

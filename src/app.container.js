@@ -6,6 +6,15 @@ import { useCurrentLocation } from './hooks';
 function AppContainer() {
   const location = useCurrentLocation();
   const [data, setData] = useState({});
+  const [background, setBackground] = useState('');
+
+  const onSliderChange = (color) => {
+    setBackground(color.hex);
+
+    const root = document.getElementById('root');
+
+    root.style.background = color.hex;
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +38,14 @@ function AppContainer() {
     fetchData();
   }, [location]);
 
-  return <App location={location} weather={data}/>
+  return (
+    <App
+      location={location}
+      weather={data}
+      background={background}
+      onSliderChange={onSliderChange}
+    />
+  )
 }
 
 export default AppContainer;
