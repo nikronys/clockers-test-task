@@ -1,24 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './app.css';
 
-function App() {
+function App({ location, weather }) {
+  if (!location) {
+    return (
+      <div className="app">
+        You need to allow to track your location.
+      </div>
+    );
+  }
+
+  if (!weather.consolidated_weather) {
+    return (
+      <div className="app">
+        Loading...
+      </div>
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="weather-block">
+        {weather.title} {Math.round(weather.consolidated_weather[0].the_temp)}°C
+      </div>
     </div>
   );
 }
